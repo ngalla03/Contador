@@ -49,8 +49,8 @@ fun Contador(modifier: Modifier = Modifier) {
     var count by rememberSaveable { mutableStateOf(0) }
     // count2: contador de todas las pulsaciones en la pantalla
     var count2 by rememberSaveable { mutableStateOf(0) }
-    // mensaje: texto de advertencia cuando no se puede restar
-    var mensaje by rememberSaveable { mutableStateOf("") }
+    // messageError: texto de advertencia cuando no se puede restar
+    var messageError by rememberSaveable { mutableStateOf("") }
 
     // --- LAYOUT PRINCIPAL ---
     Column(
@@ -58,15 +58,15 @@ fun Contador(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally, // Centrado horizontal
         verticalArrangement = Arrangement.Center // Centrado vertical
     ) {
-        // Si hay mensaje de advertencia, se muestra en rojo
-        if (mensaje.isNotEmpty()) {
+        // Si hay messageError de advertencia, se muestra en rojo
+        if (messageError.isNotEmpty()) {
             Box(
                 modifier = Modifier
                     .background(Color.Red, shape = RoundedCornerShape(8.dp))
                     .padding(8.dp)
             ) {
                 Text(
-                    text = mensaje,
+                    text = messageError,
                     color = Color.White,
                     fontSize = 32.sp
                 )
@@ -86,9 +86,9 @@ fun Contador(modifier: Modifier = Modifier) {
                     if (count > 0) {
                         count--  // Decrementa contador principal
                         count2++ // Incrementa contador total
-                        mensaje = "" // Limpia mensaje
+                        messageError = "" // Limpia messageError
                     } else {
-                        mensaje = "No puedes bajar de 0" // Advertencia
+                        messageError = "No puedes bajar de 0" // Advertencia
                     }
                 },
                 colors = ButtonDefaults.buttonColors(
@@ -106,7 +106,7 @@ fun Contador(modifier: Modifier = Modifier) {
                 onClick = {
                     count++   // Incrementa contador principal
                     count2++  // Incrementa contador total
-                    mensaje = "" // Limpia mensaje de advertencia
+                    messageError = "" // Limpia messageError de advertencia
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF4CAF50)
@@ -127,11 +127,11 @@ fun Contador(modifier: Modifier = Modifier) {
                     if (count > 0 && count >= 5) {
                         count = (count - 5).coerceAtLeast(0) // Nunca menor que 0
                         count2++
-                        mensaje = ""
+                        messageError = ""
                     }else if (count == 0){
-                        mensaje = "No puedes bajar de 0"
+                        messageError = "No puedes bajar de 0"
                     }else{
-                        mensaje = "Debe haber al menos un 5"
+                        messageError = "Debe haber al menos un 5"
                     }
                 },
                 colors = ButtonDefaults.buttonColors(
@@ -149,7 +149,7 @@ fun Contador(modifier: Modifier = Modifier) {
                 onClick = {
                     count += 5
                     count2++
-                    mensaje = ""
+                    messageError = ""
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF4CAF50)
