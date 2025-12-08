@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize() // Ocupa toda la pantalla
                 ) { innerPadding ->
                     // Aplicamos innerPadding para que los elementos no choquen con la barra del Scaffold
-                    Contador(modifier = Modifier.padding(innerPadding))
+                    Count(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Contador(modifier: Modifier = Modifier) {
+fun Count(modifier: Modifier = Modifier) {
     // --- VARIABLES DE ESTADO ---
     // count: contador principal
     var count by rememberSaveable { mutableStateOf(0) }
@@ -190,6 +190,6 @@ fun Contador(modifier: Modifier = Modifier) {
 // --- VISTA PREVIA EN EL EDITOR ---
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun ContadorPreview() {
-    Contador()
+fun CountPreview() {
+    Count()
 }
