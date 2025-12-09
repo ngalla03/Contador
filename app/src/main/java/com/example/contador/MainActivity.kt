@@ -4,22 +4,26 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.* // Para Column, Row, Spacer, padding, fillMaxSize
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.material3.Button // Botón
-import androidx.compose.material3.ButtonDefaults // Para cambiar el color de los botones
-import androidx.compose.material3.Scaffold // Layout base con barra de herramientas, fab, etc.
-import androidx.compose.material3.Text // Para mostrar texto
-import androidx.compose.runtime.* // Para remember, mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable // Para guardar estado al rotar pantalla
-import androidx.compose.ui.Alignment // Para alinear elementos
-import androidx.compose.ui.Modifier // Para modificar elementos (padding, size, etc.)
-import androidx.compose.ui.graphics.Color // Para los colores
-import androidx.compose.ui.tooling.preview.Preview // Para la vista previa
-import androidx.compose.ui.unit.dp // Unidades de distancia (densidad independiente)
-import androidx.compose.ui.unit.sp // Tamaño de letra
-import com.example.contador.ui.theme.ContadorTheme // Tema de la app
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.contador.ui.theme.ContadorTheme
 
 
 class MainActivity : ComponentActivity() {
@@ -44,6 +48,13 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Count(modifier: Modifier = Modifier) {
+    val image = painterResource(R.drawable.imagen_fondo)
+    Image(
+        painter = image,
+        contentDescription = null,
+        modifier = Modifier.fillMaxSize(),
+        contentScale = ContentScale.Crop
+    )
     // --- VARIABLES DE ESTADO ---
     // count: contador principal
     var count by rememberSaveable { mutableStateOf(0) }
@@ -92,7 +103,7 @@ fun Count(modifier: Modifier = Modifier) {
                     }
                 },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFF57C00)
+                    containerColor = Color(0xFFFF0404)
                 ),
                 contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
             ) {
@@ -135,7 +146,7 @@ fun Count(modifier: Modifier = Modifier) {
                     }
                 },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFFF57C00)
+                    containerColor = Color(0xFFFF0404)
                 ),
                 contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
             ) {
@@ -179,11 +190,13 @@ fun Count(modifier: Modifier = Modifier) {
                 messageError = ""
             },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFE57373 )
+                containerColor = Color(0xFFFFFFFF)
             ),
+            border = BorderStroke(2.dp, Color.Red),
             contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
         ) {
-            Text("Borrar", fontSize = 32.sp)
+            Text("Borrar", fontSize = 32.sp, color = Color.Red)
+
         }
     }
 }
