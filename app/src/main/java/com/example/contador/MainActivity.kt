@@ -176,6 +176,7 @@ fun Count(modifier: Modifier = Modifier) {
             onClick = {
                 count = 0
                 count2 = 0
+                messageError = ""
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFFE57373 )
