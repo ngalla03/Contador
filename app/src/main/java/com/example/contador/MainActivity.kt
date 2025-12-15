@@ -46,6 +46,29 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+var count = mutableIntStateOf(0)
+var count2 = mutableIntStateOf(0)
+
+fun Op(op: String, num: Int){
+    if (op == "+"){
+        if (num == 1){
+            count.intValue++
+            count2.intValue++
+        }else if(num == 5){
+            count.intValue += 5
+            count2.intValue ++
+        }
+    }else if (op == "-"){
+        if (num == 1){
+            count.intValue--
+            count2.intValue++
+        }else if(num == 5){
+            count.intValue -= 5
+            count2.intValue ++
+        }
+    }
+}
+
 @Composable
 fun Count(modifier: Modifier = Modifier) {
     val image = painterResource(R.drawable.imagen_fondo)
@@ -56,10 +79,6 @@ fun Count(modifier: Modifier = Modifier) {
         contentScale = ContentScale.Crop
     )
     // --- VARIABLES DE ESTADO ---
-    // count: contador principal
-    var count by rememberSaveable { mutableStateOf(0) }
-    // count2: contador de todas las pulsaciones en la pantalla
-    var count2 by rememberSaveable { mutableStateOf(0) }
     // messageError: texto de advertencia cuando no se puede restar
     var messageError by rememberSaveable { mutableStateOf("") }
 
@@ -84,7 +103,7 @@ fun Count(modifier: Modifier = Modifier) {
             }
         }
         // Texto que muestra el contador principal
-        Text(text = "Contador: $count", fontSize = 32.sp)
+        Text(text = "Contador: ${count.intValue}", fontSize = 32.sp)
 
 
         Spacer(modifier = Modifier.height(32.dp)) // Espacio entre elementos
@@ -94,9 +113,8 @@ fun Count(modifier: Modifier = Modifier) {
             // Botón para restar 1
             Button(
                 onClick = {
-                    if (count > 0) {
-                        count--  // Decrementa contador principal
-                        count2++ // Incrementa contador total
+                    if (count.intValue > 0) {
+                        Op("-", 1)
                         messageError = "" // Limpia messageError
                     } else {
                         messageError = "No puedes bajar de 0" // Advertencia
@@ -115,8 +133,7 @@ fun Count(modifier: Modifier = Modifier) {
             // Botón para sumar 1
             Button(
                 onClick = {
-                    count++   // Incrementa contador principal
-                    count2++  // Incrementa contador total
+                    Op("+", 1)
                     messageError = "" // Limpia messageError de advertencia
                 },
                 colors = ButtonDefaults.buttonColors(
@@ -135,11 +152,10 @@ fun Count(modifier: Modifier = Modifier) {
             // Botón para restar 5
             Button(
                 onClick = {
-                    if (count > 0 && count >= 5) {
-                        count = (count - 5).coerceAtLeast(0) // Nunca menor que 0
-                        count2++
+                    if (count.intValue > 0 && count.intValue >= 5) {
+                        Op("-", 5)
                         messageError = ""
-                    }else if (count == 0){
+                    }else if (count.intValue == 0){
                         messageError = "No puedes bajar de 0"
                     }else{
                         messageError = "Debe haber al menos un 5"
@@ -158,8 +174,7 @@ fun Count(modifier: Modifier = Modifier) {
             // Botón para sumar 5
             Button(
                 onClick = {
-                    count += 5
-                    count2++
+                    Op("+", 5)
                     messageError = ""
                 },
                 colors = ButtonDefaults.buttonColors(
@@ -177,7 +192,7 @@ fun Count(modifier: Modifier = Modifier) {
         // --- CONTADOR TOTAL DE PULSACIONES ---
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(text = "Pulsaciones totales en la pantalla:", fontSize = 25.sp)
-            Text(text = "$count2", fontSize = 32.sp)
+            Text(text = "${count2.intValue}", fontSize = 32.sp)
         }
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -185,8 +200,8 @@ fun Count(modifier: Modifier = Modifier) {
         // --- BOTÓN BORRAR ---
         Button(
             onClick = {
-                count = 0
-                count2 = 0
+                count.intValue = 0
+                count2.intValue = 0
                 messageError = ""
             },
             colors = ButtonDefaults.buttonColors(
